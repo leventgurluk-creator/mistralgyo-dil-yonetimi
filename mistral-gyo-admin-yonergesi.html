@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral GYO - Admin Panel Kullanım Kılavuzu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a3c5e 0%, #2d5a7b 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(26, 60, 94, 0.3);
+        }
+        
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .card h2 {
+            color: #1a3c5e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #e8a87c;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card h2 .icon {
+            font-size: 1.2em;
+        }
+        
+        .card h3 {
+            color: #2d5a7b;
+            font-size: 1.15em;
+            margin: 20px 0 12px;
+            padding-left: 15px;
+            border-left: 4px solid #e8a87c;
+        }
+        
+        .login-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        .login-box code {
+            background: #1a3c5e;
+            color: #e8a87c;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        .login-box .label {
+            font-weight: 600;
+            color: #495057;
+            display: inline-block;
+            width: 130px;
+        }
+        
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 18px;
+            font-size: 1.05em;
+        }
+        
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1a3c5e 0%, #2d5a7b 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .language-tabs {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .lang-tab {
+            background: linear-gradient(135deg, #1a3c5e 0%, #2d5a7b 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(26, 60, 94, 0.3);
+        }
+        
+        .lang-tab.en {
+            background: linear-gradient(135deg, #e8a87c 0%, #d4956a 100%);
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #1a3c5e;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .rule-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid #e8a87c;
+            padding: 20px 25px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+        
+        .rule-box h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .example-table {
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .example-table table {
+            margin: 0;
+        }
+        
+        .example-table th {
+            background: #e8a87c;
+            color: white;
+        }
+        
+        .priority-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .priority-list li {
+            background: white;
+            margin: 12px 0;
+            padding: 18px 20px;
+            border-radius: 10px;
+            border-left: 5px solid #1a3c5e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .priority-list .num {
+            display: inline-block;
+            background: #1a3c5e;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            margin-right: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .priority-list .title {
+            font-weight: 600;
+            color: #1a3c5e;
+            font-size: 1.05em;
+        }
+        
+        .priority-list .desc {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        
+        .faq-question {
+            background: white;
+            padding: 18px 20px;
+            font-weight: 600;
+            color: #1a3c5e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-question::before {
+            content: "Q";
+            background: #e8a87c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            flex-shrink: 0;
+        }
+        
+        .faq-answer {
+            padding: 15px 20px;
+            background: #fff;
+            color: #495057;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .checklist {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .checklist h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .checklist label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        
+        .checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #2e7d32;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #1976d2;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+        
+        .info-box.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left-color: #f57c00;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        footer a {
+            color: #1a3c5e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6em;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .language-tabs {
+                flex-direction: column;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🏢</div>
+            <h1>Mistral GYO</h1>
+            <p class="subtitle">Admin Panel Çoklu Dil İçerik Yönetimi Kılavuzu</p>
+        </header>
+
+        <!-- Giriş Bilgileri -->
+        <div class="card">
+            <h2><span class="icon">🔐</span> Giriş Bilgileri</h2>
+            
+            <div class="login-box">
+                <p><span class="label">Panel Adresi:</span> <code>https://www.mistralgyo.com.tr/demo/yonetim/giris</code></p>
+                <br>
+                <p><span class="label">Kullanıcı Adı:</span> <code>admin</code></p>
+                <br>
+                <p><span class="label">Şifre:</span> <code>Admin123!</code></p>
+            </div>
+        </div>
+
+        <!-- Adım Adım -->
+        <div class="card">
+            <h2><span class="icon">📋</span> İçerik Girişi: Adım Adım</h2>
+            
+            <h3>Adım 1: Panel'e Giriş</h3>
+            <ol class="step-list">
+                <li>Tarayıcıya panel adresini yazın</li>
+                <li>Kullanıcı adı ve şifre ile giriş yapın</li>
+            </ol>
+            
+            <h3>Adım 2: Dil Seçimi</h3>
+            <div class="language-tabs">
+                <div class="lang-tab">🇹🇷 Türkçe (TR)</div>
+                <div class="lang-tab en">🇬🇧 English (EN)</div>
+            </div>
+            <p>Sol üstte <strong>TR</strong> veya <strong>EN</strong> seçeneğini görürsünüz.</p>
+            
+            <div class="info-box warning">
+                <strong>⚠️ ÖNEMLİ:</strong> Her içerik için ayrı ayrı içerik girmeniz gerekir!<br>
+                Türkçe içerik girerken <strong>TR</strong>, İngilizce girerken <strong>EN</strong> seçili olmalı.
+            </div>
+            
+            <h3>Adım 3: İçerik Türünü Seçin</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Menü Adı</th>
+                            <th>Ne İçin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Anasayfa Slider</strong></td><td>Ana sayfadaki slayt görselleri</td></tr>
+                        <tr><td><strong>Projeler</strong></td><td>Proje bilgileri ve açıklamalar</td></tr>
+                        <tr><td><strong>Haberler</strong></td><td>Haber ve duyurular</td></tr>
+                        <tr><td><strong>S.S.S.</strong></td><td>Sıkça Sorulan Sorular</td></tr>
+                        <tr><td><strong>İçerikler</strong></td><td>Hakkımızda, Misyon-Vizyon, GYO Hakkında vb.</td></tr>
+                        <tr><td><strong>Yatırımcı İlişkileri</strong></td><td>Finansal raporlar, genel kurul vb.</td></tr>
+                        <tr><td><strong>Menüler</strong></td><td>Üst menü ve alt menü bağlantıları</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Adım 4: İçerik Ekleme/Düzenleme</h3>
+            <h3 style="font-size: 1em; color: #495057;">Yeni İçerik Ekleme:</h3>
+            <ol class="step-list">
+                <li>İlgili menüye tıklayın (örn. İçerikler)</li>
+                <li><strong>"Yeni Ekle"</strong> butonuna tıklayın</li>
+                <li>Formu doldurun ve <strong>"Kaydet"</strong> butonuna tıklayın</li>
+            </ol>
+            
+            <h3 style="font-size: 1em; color: #495057;">Mevcut İçeriği Düzenleme:</h3>
+            <ol class="step-list">
+                <li>İlgili menüye gidin</li>
+                <li>Düzenlemek istediğiniz satırdaki <strong>"Düzenle"</strong> butonuna tıklayın</li>
+                <li>Değişiklikleri yapın ve <strong>"Güncelle"</strong> butonuna tıklayın</li>
+            </ol>
+        </div>
+
+        <!-- Dil Seçimi Kuralı -->
+        <div class="card">
+            <h2><span class="icon">🌐</span> Dil Seçimi Kuralı</h2>
+            
+            <div class="rule-box">
+                <h4>📌 HER İÇERİĞİN İKİ VERSİYONU OLMALIDIR</h4>
+                <p>1. <strong>Türkçe (TR)</strong> versiyonu<br>
+                2. <strong>İngilizce (EN)</strong> versiyonu</p>
+            </div>
+            
+            <h3>Doğru Örnek:</h3>
+            <div class="example-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sayfa</th>
+                            <th>TR İçerik</th>
+                            <th>EN İçerik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hakkımızda</td>
+                            <td>"Mistral Gayrimenkul Yatırım Ortaklığı..."</td>
+                            <td>"Mistral Real Estate Investment Trust..."</td>
+                        </tr>
+                        <tr>
+                            <td>Misyon</td>
+                            <td>"Çevreye duyarlı projelerle..."</td>
+                            <td>"To continuously develop our portfolio..."</td>
+                        </tr>
+                        <tr>
+                            <td>Vizyon</td>
+                            <td>"Kaliteyi yüksek estetikle buluşturacak..."</td>
+                            <td>"To be one of the leading REITs..."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Öncelik Sırası -->
+        <div class="card">
+            <h2><span class="icon">⭐</span> İçerik Türlerine Göre Öncelik Sırası</h2>
+            
+            <ul class="priority-list">
+                <li>
+                    <span class="num">1</span>
+                    <span class="title">Projeler</span>
+                    <p class="desc">Her proje için hem TR hem EN açıklama girin. Görseller aynı kullanılabilir.</p>
+                </li>
+                <li>
+                    <span class="num">2</span>
+                    <span class="title">İçerikler Sayfası</span>
+                    <p class="desc">Hakkımızda, Misyon & Vizyon, GYO Hakkında, Gizlilik Politikası, Kalite Politikası</p>
+                </li>
+                <li>
+                    <span class="num">3</span>
+                    <span class="title">Haberler</span>
+                    <p class="desc">Duyurular genelde tek dilde olabilir. Önemli duyurular için EN versiyonu da ekleyin.</p>
+                </li>
+                <li>
+                    <span class="num">4</span>
+                    <span class="title">S.S.S.</span>
+                    <p class="desc">Sıkça sorulan soruların her iki dilde de olması tercih edilir.</p>
+                </li>
+                <li>
+                    <span class="num">5</span>
+                    <span class="title">Yatırımcı İlişkileri</span>
+                    <p class="desc">Kategoriler otomatik çevrilidir. İçerikler (raporlar) genelde tek dilde.</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SSS -->
+        <div class="card">
+            <h2><span class="icon">❓</span> Sık Karşılaşılan Sorunlar</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Dil seçeneği gözükmüyor</div>
+                <div class="faq-answer"><strong>Çözüm:</strong> Sayfayı yenileyin veya tarayıcı önbelleğini temizleyin (Ctrl+Shift+R)</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">EN içerik kaydedilmiyor</div>
+                <div class="faq-answer"><strong>Çözüm:</strong> Kaydetmeden önce dil seçimini EN olarak değiştirdiğinizden emin olun</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">İçerik boş görünüyor</div>
+                <div class="faq-answer"><strong>Çözüm:</strong> Doğru dil seçili olduğunu kontrol edin (TR/EN)</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Yeni içerik ekleyince kayboluyor</div>
+                <div class="faq-answer"><strong>Çözüm:</strong> İçeriği ekledikten sonra diğer dil versiyonunu da eklemeyi unutmayın</div>
+            </div>
+        </div>
+
+        <!-- Kontrol Listesi -->
+        <div class="card">
+            <h2><span class="icon">✅</span> Hızlı Kontrol Listesi</h2>
+            
+            <div class="checklist">
+                <h4>İçerik eklerken/düzenlerken şunları kontrol edin:</h4>
+                <label><input type="checkbox"> Dil seçimi doğru yapıldı (TR veya EN)</label>
+                <label><input type="checkbox"> Başlık uygun dilde yazıldı</label>
+                <label><input type="checkbox"> İçerik metni girildi</label>
+                <label><input type="checkbox"> Gerekliyse görseller eklendi</label>
+                <label><input type="checkbox"> Kaydet butonuna tıklandı</label>
+                <label><input type="checkbox"> İkinci dil versiyonu da eklendi</label>
+            </div>
+        </div>
+
+        <!-- Yardım -->
+        <div class="card">
+            <h2><span class="icon">💬</span> Yardım</h2>
+            
+            <div class="info-box">
+                <p><strong>Teknik sorun için:</strong> Mavis AI asistanına başvurun</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Mistral GYO Admin Panel Kılavuzu | 
+            <a href="https://www.mistralgyo.com.tr/demo/yonetim/giris">Panel'e Git</a></p>
+        </footer>
+    </div>
+</body>
+</html>
